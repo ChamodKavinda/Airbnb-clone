@@ -7,6 +7,7 @@ import {CategoryComponent} from "./category/category.component";
 import {AvatarComponent} from "./avatar/avatar.component";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MenuItem} from "primeng/api";
+import {ToastService} from "../toast.service";
 
 
 @Component({
@@ -31,16 +32,20 @@ export class NavbarComponent implements OnInit {
   dates = "Any week";
 
 
+  toastService = inject(ToastService);
+
   //login = () => this.authService.login();
 
   //logout = () => this.authService.logout();
+
 
   currentMenuItems: MenuItem[] | undefined = [];
 
 
 
   ngOnInit(): void {
-    this.fetchMenu();
+    this.currentMenuItems=this.fetchMenu();
+    this.toastService.send({severity:"info",summary:"Welcome to Your airbnb App"});
   }
 
   private fetchMenu(): MenuItem[] {
